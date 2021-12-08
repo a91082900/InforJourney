@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from Player import Player
 from Data import *
 from time import sleep
+from io import BytesIO
 
 def sending(func):
     def self_catcher(*args, **kwargs):
@@ -108,6 +109,14 @@ class Output(ABC):
     @sending
     def send_map(self):
         self._send_photo(self.id, open("./Img/raw_map.jpg","rb"))
+
+    @sending
+    def send_painted_map(self, image):
+        bio = BytesIO()
+        bio.name = 'image.jpeg'
+        image.save(bio, 'JPEG')
+        bio.seek(0)
+        self._send_photo(self.id, bio)
     
     @sending
     def send_pos(self, name, pos):

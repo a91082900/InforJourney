@@ -4,6 +4,7 @@ from typing import Dict
 from telegram.ext import (Filters, Updater, Updater, CommandHandler, 
     CallbackQueryHandler, MessageHandler)
 from Game import Game, stat_ids
+from MapPainter import MapPainter
 
 games: Dict [int, Game] = {}
 updater = Updater(TOKEN)
@@ -28,6 +29,10 @@ def add_command(name=None, group=1):
         return func
     return wrapper
 
+@add_command("map")
+def show_map(update, context):
+    game.on_draw_map()
+
 @add_command()
 def start(update, context):
     game.on_start()
@@ -39,9 +44,9 @@ def jizz(update, context):
     except:
         game.on_jizz(uid)
 
-@add_command("map")
-def show_map(update, context):
-    game.on_map()
+# @add_command("map")
+# def show_map(update, context):
+#     game.on_map()
 
 @add_command()
 def pos(update, context):

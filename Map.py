@@ -1,3 +1,4 @@
+import random
 from Events import Shop, Blacksmith
 from Data import Bosses, BossDropItem
 from Entity import Boss
@@ -24,4 +25,8 @@ def GenMap():
         Map[i] = ChestGen()
     for i in l: # MonsterGen
         Map[i] = MonsterGen()
+
+    # shuffle the map
+    for i in range(4):
+        Map[10*i+1:10*i+10] = random.sample(Map[10*i+1:10*i+10], 9)
     return Map

@@ -3,6 +3,7 @@ from typing import Dict
 from time import sleep
 from random import randint
 from num2words import num2words
+from MapPainter import MapPainter
 
 from Output import Output
 from Map import GenMap
@@ -50,6 +51,7 @@ class Game:
         self.state = State.UNSTARTED
         self.now_player_no = -1
         self.out = out
+        self.map_painter = MapPainter(Map=self.Map)
 
     def now_player(self) -> Player:
         return self.players[self.now_player_no]
@@ -215,6 +217,11 @@ class Game:
         for k in game_stat_ids:
             del stat_ids[k]
         self.__init__(self.id, self.out)
+
+    @available_in_states(Not(State.UNSTARTED))
+    def on_draw_map(self):
+        painted = self.map_painter.draw_players(self.players)
+        self.out.send_painted_map(painted)
 
 #user_id -> the game they're questing
 stat_ids: Dict[int, Game] = dict()
