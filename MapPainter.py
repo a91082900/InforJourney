@@ -13,7 +13,7 @@ class MapPainter:
             (20, 82, 42),
             (33, 19, 165)
         ]
-        self.font = ImageFont.truetype("img\\draw\\jf-openhuninn-1.1.ttf", 18, encoding='utf-8')
+        self.font = ImageFont.truetype("Img/draw/jf-openhuninn-1.1.ttf", 18, encoding='utf-8')
         
         if positions != None:
             self.draw_base(positions)
